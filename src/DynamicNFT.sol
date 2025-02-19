@@ -82,6 +82,21 @@ contract DynamicNFT is ERC721, ERC721URIStorage, Ownable {
         return Base64.encode(data);
     }
 
+    /**
+     * @dev Update the color of the NFT upon transfer.
+     * comment out this function if you don't want to update the color of the NFT upon transfer.
+     */
+    function _update(address to, uint256 tokenId, address auth) internal override returns (address) {
+        address owner = super._update(to, tokenId, auth);
+        _updateColor(tokenId, to);
+        return owner;
+    }
+
+    function _updateColor(uint256 tokenId, address newOwner) internal {
+        string memory newColor = generateColorFromAddress(newOwner);
+        _setTokenURI(tokenId, _generateMetadata(newColor)); // Update metadata
+    }
+
     // following functions are override functions required
 
     function tokenURI(

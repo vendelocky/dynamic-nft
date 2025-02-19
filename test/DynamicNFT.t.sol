@@ -15,7 +15,7 @@ contract DynamicNFTTest is Test, IERC721Receiver {
         owner = address(this);
     }
 
-    function testGenerateHexColorWithCorrectLengthFromAddress() public view {
+    function testHexColorFromAddress() public view {
         string memory color = dynamicNFT.generateColorFromAddress(owner);
         assert(bytes(color).length == HEX_COLOR_LENGTH);
     }
@@ -62,6 +62,22 @@ contract DynamicNFTTest is Test, IERC721Receiver {
         vm.stopPrank();
 
         assert(keccak256(abi.encodePacked(firstSVG)) == keccak256(abi.encodePacked(secondSVG)));
+    }
+
+    // comment out this test function if you don't want to update the color of the NFT upon transfer.
+    function testChangeColorAfterTransfer() public {
+        address firstOwner = address(0x123);
+        address secondOwner = address(0x456);
+
+        vm.prank(owner);
+        dynamicNFT.mint(firstOwner);
+        string memory firstSVG = dynamicNFT.tokenURI(0);
+
+        vm.prank(firstOwner);
+        dynamicNFT.transferFrom(firstOwner, secondOwner, 0);
+        string memory secondSVG = dynamicNFT.tokenURI(0);
+
+        assert(keccak256(abi.encodePacked(firstSVG)) != keccak256(abi.encodePacked(secondSVG)));
     }
 
     // this function is override functions required by IERC721Receiver
