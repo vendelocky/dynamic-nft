@@ -52,3 +52,10 @@ After minting process is successful, go to `opensea.io` OR `testnets.opensea.io`
 
 ## Transfer NFT
 You can call the `transferFrom` function to transfer the NFT to another owner (as shown in the test file) OR you can transfer the NFT through `opensea.io` itself. It will automatically change the color once the ownership is transferred.
+
+## Testing color
+To check the SVG image color on browser, copy paste this to the browser
+```
+// ENCODED_BASE_64_DATA is the data after `data:application/json;base64,` until the end `=`
+data:image/svg+xml;base64,<ENCODED_BASE_64_DATA>
+```

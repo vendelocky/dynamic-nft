@@ -20,11 +20,7 @@ contract DynamicNFT is ERC721, ERC721URIStorage, Ownable {
     constructor() ERC721("DynamicNFT", "DNFT") Ownable(msg.sender) {}
 
     function mint(address to) public onlyOwner {
-        string memory color = generateColorFromAddress(to);
-        emit generatedColor(_tokenId, to, color);
-
         _safeMint(to, _tokenId);
-        _setTokenURI(_tokenId, _generateMetadata(color));
         _tokenId++;
     }
 
@@ -93,6 +89,7 @@ contract DynamicNFT is ERC721, ERC721URIStorage, Ownable {
 
     function _updateColor(uint256 tokenId, address newOwner) internal {
         string memory newColor = generateColorFromAddress(newOwner);
+        emit generatedColor(_tokenId, newOwner, newColor);
         _setTokenURI(tokenId, _generateMetadata(newColor)); // Update metadata
     }
 
