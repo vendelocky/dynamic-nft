@@ -58,7 +58,7 @@ To open SVG img in browser:
 
 1. Get the data using
 ```
-string memory firstSVG = dynamicNFTLink.tokenURI(0); // 0 is the token id sample
+string memory firstSVG = dynamicNFT.tokenURI(0); // 0 is the token id sample
 ```
 2. the data will look like this
 ```
