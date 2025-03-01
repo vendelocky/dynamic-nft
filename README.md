@@ -54,8 +54,17 @@ After minting process is successful, go to `opensea.io` OR `testnets.opensea.io`
 You can call the `transferFrom` function to transfer the NFT to another owner (as shown in the test file) OR you can transfer the NFT through `opensea.io` itself. It will automatically change the color once the ownership is transferred.
 
 ## Testing color
-To check the SVG image color on browser, copy paste this to the browser
+To open SVG img in browser:
+
+1. Get the data using
 ```
-// ENCODED_BASE_64_DATA is the data after `data:application/json;base64,` until the end `=`
-data:image/svg+xml;base64,<ENCODED_BASE_64_DATA>
+string memory firstSVG = dynamicNFTLink.tokenURI(0); // 0 is the token id sample
 ```
+2. the data will look like this
+```
+data:application/json;base64,eyJuYW1lIjoiRXRoZXJldW0gTG9nbyBXaXRoI...
+```
+
+3. Decode the base64 data after the text `data:application/json;base64,` using any base64Decoder (openzeppelin has that function too) OR simply go to https://www.base64decode.org/, copy paste the data and `decode`
+
+4. Find the `image` object, and copy paste the value to the browser. E.g. `data:image/svg+xml;base64,<DECODED_DATA>`
